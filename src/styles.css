@@ -121,8 +121,11 @@ p{line-height:1.75;color:#617086}
 .brand-marquee-track{display:flex;width:max-content;animation:marquee-left 34s linear infinite;will-change:transform}
 .brand-marquee-right .brand-marquee-track{animation-name:marquee-right;animation-duration:39s}
 .brand-marquee:hover .brand-marquee-track,.brand-marquee:focus-within .brand-marquee-track{animation-play-state:paused}
-.brand-marquee-group{display:flex;align-items:center;gap:55px;padding-right:55px;flex:none}
-.client-brand{min-width:155px;min-height:85px;display:grid;place-items:center;font-family:Georgia,serif;font-size:23px;font-weight:600;letter-spacing:-.045em;color:#66807e;white-space:nowrap}
+.brand-marquee-group{display:flex;align-items:center;gap:40px;padding-right:40px;flex:none}
+.client-logo{width:188px;height:112px;display:grid;place-items:center;flex:none;opacity:.86;transition:opacity .35s ease}
+.client-logo:hover{opacity:1}
+.client-logo svg{display:block;width:100%;height:100%;overflow:hidden}
+.client-logo.is-badge svg{width:112px;height:108px}
 @keyframes marquee-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes marquee-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 
@@ -144,8 +147,9 @@ p{line-height:1.75;color:#617086}
 
 @media(max-width:560px){
   .client-marquees{margin-top:22px}
-  .brand-marquee-group{gap:28px;padding-right:28px}
-  .client-brand{min-width:125px;min-height:67px;font-size:19px}
+  .brand-marquee-group{gap:20px;padding-right:20px}
+  .client-logo{width:142px;height:88px}
+  .client-logo.is-badge svg{width:84px;height:84px}
   .about-hero h1{max-width:100%}
   .closing-inner{padding:65px 0}
   .closing-inner h2{font-size:clamp(34px,9vw,40px);line-height:1.08}

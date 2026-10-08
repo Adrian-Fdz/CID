@@ -3,6 +3,19 @@ import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, ChevronDown, Menu, X }
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import { images } from './assets'
 import americasMap from './americas-map.svg'
+import client01 from './assets/client-logos/client-01.png'
+import colgateLogo from './assets/client-logos/colgate.png'
+import givaudanLogo from './assets/client-logos/givaudan.png'
+import iffLogo from './assets/client-logos/iff.png'
+import jafraLogo from './assets/client-logos/jafra.png'
+import lorealLogo from './assets/client-logos/loreal.png'
+import pgLogo from './assets/client-logos/pg.png'
+import client08 from './assets/client-logos/client-08.png'
+import firmenichLogo from './assets/client-logos/firmenich.png'
+import saborTealLogo from './assets/client-logos/sabor-2026-teal.png'
+import client11 from './assets/client-logos/client-11.png'
+import client12 from './assets/client-logos/client-12.png'
+import saborRedLogo from './assets/client-logos/sabor-2026-red.png'
 
 const services = [
   {
@@ -61,10 +74,26 @@ const process = [
   ['05', 'Recomendar', 'La siguiente decisión'],
 ]
 
-// The text is a temporary stand-in for the client-provided brand marks.
-const clientRows = [
-  ['Robertet', 'IFF', 'Jafra', 'Takasago', 'Firmenich'],
-  ['Symrise', 'Givaudan', 'Colgate', 'L’Oréal', 'P&G'],
+type ClientLogo = { id: string, name: string, src: string, viewBox: string, tone?: 'badge-teal' | 'badge-red' }
+
+const clientRows: ClientLogo[][] = [
+  [
+    { id: '01', name: 'Logotipo de cliente CID', src: client01, viewBox: '179 199 1698 1637' },
+    { id: 'colgate', name: 'Colgate', src: colgateLogo, viewBox: '20 726 1951 539' },
+    { id: 'givaudan', name: 'Givaudan', src: givaudanLogo, viewBox: '22 775 1957 450' },
+    { id: 'iff', name: 'IFF', src: iffLogo, viewBox: '203 203 1594 1594' },
+    { id: 'jafra', name: 'Jafra', src: jafraLogo, viewBox: '197 732 1606 742' },
+    { id: 'loreal', name: 'L’Oréal', src: lorealLogo, viewBox: '180 180 1653 1653' },
+    { id: 'pg', name: 'P&G', src: pgLogo, viewBox: '261 280 1465 1461' },
+  ],
+  [
+    { id: '08', name: 'Emblema de cliente CID', src: client08, viewBox: '177 355 1640 1213' },
+    { id: 'firmenich', name: 'Firmenich', src: firmenichLogo, viewBox: '83 739 1821 519' },
+    { id: 'sabor-teal', name: 'Sabor del Año 2026', src: saborTealLogo, viewBox: '270 166 1448 1666', tone: 'badge-teal' },
+    { id: '11', name: 'Logotipo geométrico de cliente CID', src: client11, viewBox: '279 273 1424 1430' },
+    { id: '12', name: 'Emblema de cliente CID con toro', src: client12, viewBox: '250 238 1552 1533' },
+    { id: 'sabor-red', name: 'Sabor del Año 2026', src: saborRedLogo, viewBox: '202 88 1584 1826', tone: 'badge-red' },
+  ],
 ]
 
 function ScrollReveals({ pathname }: { pathname: string }) {
@@ -101,11 +130,24 @@ function ScrollReveals({ pathname }: { pathname: string }) {
   return null
 }
 
-function BrandMarquee({ brands, direction }: { brands: string[], direction: 'left' | 'right' }) {
-  return <div className={`brand-marquee brand-marquee-${direction}`} aria-label={brands.join(', ')}>
+const solidLogoMatrix = '0 0 0 0 .35  0 0 0 0 .43  0 0 0 0 .45  0 0 0 1 0'
+const tealBadgeMatrix = '0 .45 0 0 .18  0 .52 0 0 .22  0 .48 0 0 .25  0 0 0 1 0'
+const redBadgeMatrix = '.45 0 0 0 .18  .52 0 0 0 .22  .48 0 0 0 .25  0 0 0 1 0'
+
+function BrandMarquee({ brands, direction }: { brands: ClientLogo[], direction: 'left' | 'right' }) {
+  return <div className={`brand-marquee brand-marquee-${direction}`} aria-label={brands.map(brand => brand.name).join(', ')}>
     <div className="brand-marquee-track">
       {[0, 1].map((copy) => <div className="brand-marquee-group" aria-hidden={copy === 1} key={copy}>
-        {brands.map((brand) => <span className="client-brand" key={`${copy}-${brand}`}>{brand}</span>)}
+        {brands.map((brand) => {
+          const filterId = `client-tone-${direction}-${copy}-${brand.id}`
+          const matrix = brand.tone === 'badge-teal' ? tealBadgeMatrix : brand.tone === 'badge-red' ? redBadgeMatrix : solidLogoMatrix
+          return <span className={`client-logo ${brand.tone ? 'is-badge' : ''}`} key={`${copy}-${brand.id}`}>
+            <svg viewBox={brand.viewBox} role="img" aria-label={brand.name} preserveAspectRatio="xMidYMid meet">
+              <defs><filter id={filterId} colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values={matrix} />{!brand.tone && <feComponentTransfer><feFuncA type="gamma" amplitude="1" exponent=".35" offset="0" /></feComponentTransfer>}</filter></defs>
+              <image href={brand.src} width="2000" height="2000" filter={`url(#${filterId})`} />
+            </svg>
+          </span>
+        })}
       </div>)}
     </div>
   </div>
