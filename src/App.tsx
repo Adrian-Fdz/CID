@@ -158,7 +158,7 @@ function PageLoadIntro() {
 
   useEffect(() => {
     if (!visible) return
-    const timer = window.setTimeout(() => setVisible(false), 1700)
+    const timer = window.setTimeout(() => setVisible(false), 2500)
     return () => window.clearTimeout(timer)
   }, [visible])
 
