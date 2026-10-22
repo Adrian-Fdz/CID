@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState, type FormEvent } from 'react'
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, ChevronDown, Menu, X } from 'lucide-react'
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, ChevronDown, Instagram, Linkedin, Mail, Menu, MessageCircle, Phone, X } from 'lucide-react'
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import { images } from './assets'
+import { CONTACT } from './contact'
 import americasMap from './americas-map.svg'
 import client01 from './assets/client-logos/client-01.png'
 import colgateLogo from './assets/client-logos/colgate.png'
@@ -30,41 +31,111 @@ const services = [
   },
   {
     number: '02',
+    id: 'optimizacion',
     title: 'Optimización de perfumes y sabores',
     short: 'Encontramos el equilibrio entre percepción, desempeño sensorial y costo.',
     detail: 'Encontramos el punto óptimo entre percepción, desempeño sensorial y costo.',
+    long: 'Cuando un perfume o sabor ya funciona, la pregunta es cuánto de él realmente importa. Evaluamos qué ingredientes y dosis aportan percepción al consumidor y cuáles solo suman costo, para llegar a una fórmula más eficiente sin perder lo que la gente valora.',
+    outcome: 'Una fórmula equilibrada entre percepción, desempeño y costo.',
     image: images.perfume,
     imageAlt: 'Tiras olfativas e ingredientes junto a muestras de perfumería',
     methods: ['Reducción de costos', 'Dosificación óptima', 'Validación sensorial', 'Desarrollo conceptual'],
   },
   {
     number: '03',
+    id: 'evaluacion-sensorial',
     title: 'Evaluación sensorial',
     short: 'Medimos atributos sensoriales con paneles, protocolos y análisis estadístico.',
     detail: 'Medimos y describimos objetivamente las propiedades sensoriales que determinan la experiencia del producto.',
+    long: 'Medimos y describimos de forma objetiva las propiedades sensoriales que definen la experiencia de un producto, como aroma, sabor e intensidad. Con protocolos estandarizados y análisis estadístico, los resultados son comparables y repetibles.',
+    outcome: 'Un perfil sensorial claro y datos confiables para decidir.',
     image: images.sensory,
     imageAlt: 'Participantes en una evaluación sensorial controlada',
     methods: ['QDA', 'Pruebas hedónicas', 'Umbral sensorial', 'TDS'],
   },
   {
     number: '04',
+    id: 'paneles-expertos',
     title: 'Paneles de expertos',
     short: 'Formamos paneles capaces de reconocer diferencias sensoriales consistentes.',
     detail: 'Seleccionamos, entrenamos y coordinamos paneles capaces de detectar diferencias que un consumidor convencional no puede identificar consistentemente.',
+    long: 'Seleccionamos, entrenamos y coordinamos paneles de personas con sensibilidad especial para detectar diferencias que un consumidor convencional no identifica de manera consistente. Pueden trabajar con CID o formarse dentro de tu empresa.',
+    outcome: 'Un equipo capaz de evaluar con criterio consistente.',
     image: images.flavors,
     imageAlt: 'Muestras de sabores organizadas para una prueba comparativa',
     methods: ['Selección', 'Entrenamiento', 'Paneles de consumidores', 'Paneles internos'],
   },
   {
     number: '05',
+    id: 'proyectos-a-medida',
     title: 'Proyectos a medida',
     short: 'Diseñamos el estudio y las herramientas alrededor de la pregunta.',
     detail: 'Cuando un reto no encaja en una metodología existente, diseñamos el estudio, protocolo y herramientas desde cero.',
+    long: 'No todos los retos encajan en una metodología existente. Diseñamos el estudio, el protocolo y las herramientas desde cero, incluyendo equipos especiales y preparación de muestras, alrededor de la pregunta de tu negocio.',
+    outcome: 'Un estudio hecho exactamente para tu pregunta.',
     image: images.analysis,
     imageAlt: 'Análisis de resultados de investigación sobre una mesa de trabajo',
     methods: ['Equipos especiales', 'Preparación de muestras', 'Protocolos propios', 'Estudios integrales'],
   },
 ]
+
+const consumerMethods = [
+  {
+    id: 'sniff-tests',
+    title: 'Sniff Tests',
+    tag: 'ESPECIALIDAD CID',
+    short: 'Cápsulas que se limpian entre muestras para apreciar el aroma al 100%.',
+    detail: 'Un método muy especializado: cada participante evalúa el aroma dentro de una cápsula que se limpia entre muestra y muestra, para que no quede ningún otro olor. El resultado es una percepción pura, sin interferencias del ambiente ni de otras muestras.',
+    ideal: 'Comparar aromas y medir agrado e intensidad sin interferencias',
+    image: images.sniffTest,
+    alt: 'Persona evaluando un aroma dentro de una cápsula olfativa aislada',
+    featured: true,
+  },
+  {
+    id: 'focus-groups',
+    title: 'Focus Groups',
+    tag: 'GRUPAL',
+    short: 'Conversaciones guiadas para explorar emociones y preferencias.',
+    detail: 'Un moderador guía la conversación con un grupo de consumidores. La dinámica grupal ayuda a descubrir cómo hablan del producto, qué emociones despierta y qué ideas surgen al compartirlo.',
+    ideal: 'Explorar conceptos, lenguaje y primeras reacciones',
+    image: images.focusGroup,
+    alt: 'Grupo de personas evaluando muestras en una conversación guiada',
+  },
+  {
+    id: 'estudios-1-a-1',
+    title: 'Estudios 1 a 1',
+    tag: 'INDIVIDUAL',
+    short: 'Entrevistas en profundidad, sin la influencia del grupo.',
+    detail: 'Entrevistas individuales y en profundidad. Sin la influencia del grupo, cada persona expresa con libertad cómo percibe y recuerda el producto.',
+    ideal: 'Percepciones personales que el grupo podría sesgar',
+    image: images.oneToOne,
+    alt: 'Entrevista individual con una participante evaluando una muestra',
+  },
+  {
+    id: 'visitas-a-casa',
+    title: 'Visitas a casa',
+    tag: 'EN CAMPO',
+    short: 'Vamos a donde viven las personas para conversar en su entorno.',
+    detail: 'Vamos a los hogares y lugares donde viven las personas para conversar con ellas en su entorno. Observamos el contexto real en que el producto se compra, se guarda y se usa.',
+    ideal: 'Entender hábitos, contexto y entorno de uso',
+    image: images.homeVisit,
+    alt: 'Investigadora conversando con una persona en su hogar',
+  },
+  {
+    id: 'uso-en-casa',
+    title: 'Uso en casa',
+    tag: 'EXPERIENCIA REAL',
+    short: 'El producto se vive en el hogar, dentro de la rutina real.',
+    detail: 'El participante lleva el producto a su hogar y lo usa en su rutina durante un periodo definido. Así capturamos la experiencia completa: cómo se siente al usarlo, cómo se recuerda y qué lo hace volver a elegirlo.',
+    ideal: 'Validar desempeño y agrado en condiciones reales de uso',
+    image: images.homeUse,
+    alt: 'Persona probando un producto en su casa',
+  },
+]
+
+const consumerUses = ['Validación de producto', 'Benchmark competitivo', 'Preferencia', 'Comprensión del consumidor']
+
+const otherServices = services.filter(service => service.number !== '01')
 
 const process = [
   ['01', 'Definir', 'La pregunta de negocio'],
@@ -104,14 +175,14 @@ function ScrollReveals({ pathname }: { pathname: string }) {
       '.hero-copy > *', '.hero-visual', '.about-hero-inner > *',
       '.intro-photo', '.intro-copy', '.section-heading', '.service-preview-card',
       '.method-copy', '.process-step', '.clients-section h2', '.brand-marquee',
-      '.closing-inner', '.page-hero-grid > *', '.services-intro', '.service-row',
+      '.closing-inner', '.consumer-head > *', '.consumer-card', '.consumer-row', '.consumer-cta', '.page-hero-grid > *', '.services-intro', '.service-row',
       '.history-item', '.belief-heading', '.belief-story', '.founder-image', '.founder-copy', '.presence-heading', '.presence-layout > *',
       '.contact-copy', '.contact-form',
     ].join(',')
     const targets = Array.from(document.querySelectorAll<HTMLElement>(selector))
     targets.forEach((element) => {
       const siblings = element.parentElement?.children
-      if (siblings && (element.matches('.hero-copy > *, .about-hero-inner > *, .service-preview-card, .process-step, .history-item'))) {
+      if (siblings && (element.matches('.hero-copy > *, .about-hero-inner > *, .service-preview-card, .consumer-card, .process-step, .history-item'))) {
         const index = Array.from(siblings).indexOf(element)
         element.style.setProperty('--reveal-delay', `${Math.min(index * 45, 160)}ms`)
       }
@@ -206,7 +277,7 @@ function Footer() {
     <div className="container footer-top">
       <div><Brand /><p>Investigación que convierte percepción en decisiones de negocio.</p></div>
       <div className="footer-links"><Link to="/">Inicio</Link><Link to="/servicios">Servicios</Link><Link to="/nosotros">Nosotros</Link><Link to="/nosotros#contacto">Contacto</Link></div>
-      <div className="footer-contact"><span>CIUDAD DE MÉXICO, MÉXICO</span><a href="mailto:contacto@cidconsultores.com">contacto@cidconsultores.com</a></div>
+      <div className="footer-contact"><span>{CONTACT.city.toUpperCase()}</span><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></div>
     </div>
     <div className="container footer-bottom"><span>© {new Date().getFullYear()} CID Consultores</span><span>Personas. Insights. Oportunidades.</span></div>
   </footer>
@@ -229,6 +300,47 @@ function ClosingCTA() {
   </section>
 }
 
+function ConsumerStudies({ variant }: { variant: 'showcase' | 'detail' }) {
+  const detailed = variant === 'detail'
+  return <section className={`section consumer-studies is-${variant}`} id="estudios-consumidores">
+    <div className="container">
+      <div className="consumer-head">
+        <div>
+          <SectionTag>NUESTRO SERVICIO ESTRELLA</SectionTag>
+          <h2>Estudios con <em>consumidores.</em></h2>
+          <p>Entendemos cómo el consumidor final percibe, siente y recuerda un aroma, sabor o producto, con métodos altamente especializados que llevamos a donde las personas realmente viven la experiencia.</p>
+        </div>
+        {detailed
+          ? <div className="consumer-uses">
+            <h4>CUÁNDO UTILIZARLO</h4>
+            <ul>{consumerUses.map(use => <li key={use}><Check size={14} />{use}</li>)}</ul>
+          </div>
+          : <Link className="text-link consumer-more" to="/servicios">Ver cómo lo hacemos <ArrowUpRight size={18} /></Link>}
+      </div>
+      {detailed
+        ? <div className="consumer-rows">
+          {consumerMethods.map((method, index) => <article className="consumer-row" key={method.title}>
+            <div className="consumer-row-image"><img src={method.image} alt={method.alt} loading="lazy" /></div>
+            <div className="consumer-row-body">
+              <span>{String(index + 1).padStart(2, '0')} / {method.tag}</span>
+              <h3>{method.title}</h3>
+              <p>{method.detail}</p>
+              <div className="consumer-ideal"><h4>IDEAL PARA</h4><p>{method.ideal}</p></div>
+              <Link className="text-link row-cta" to={`/nosotros?servicio=${method.id}#contacto`}>Cotizar este servicio <ArrowUpRight size={18} /></Link>
+            </div>
+          </article>)}
+        </div>
+        : <div className="consumer-grid">
+          {consumerMethods.map(method => <article className={`consumer-card ${method.featured ? 'is-featured' : ''}`} key={method.title}>
+            <div className="consumer-card-image"><img src={method.image} alt={method.alt} loading="lazy" /></div>
+            <div className="consumer-card-body"><span>{method.tag}</span><h3>{method.title}</h3><p>{method.short}</p></div>
+          </article>)}
+        </div>}
+      {detailed && <div className="consumer-cta"><ButtonLink to="/nosotros#contacto" variant="light">Cotizar un estudio con consumidores</ButtonLink></div>}
+    </div>
+  </section>
+}
+
 function HomePage() {
   return <>
     <section className="home-hero">
@@ -243,7 +355,8 @@ function HomePage() {
       </div>
     </section>
     <section className="section intro-section"><div className="container intro-grid"><div className="intro-photo"><ImagePanel src={images.sensory} alt="Participantes evaluando muestras sensoriales" /><div className="photo-index">01 / EXPERTISE SENSORIAL</div></div><div className="intro-copy"><SectionTag>EXPERTISE SENSORIAL</SectionTag><h2>Entender al consumidor va más allá de preguntar si algo <em>le gusta.</em></h2><p>Combinamos investigación, ciencia sensorial y experiencia para entender qué atributos realmente impulsan la percepción y preferencia del consumidor.</p><Link className="text-link" to="/nosotros">Conoce a CID <ArrowUpRight size={18} /></Link></div></div></section>
-    <section className="section services-preview"><div className="container"><div className="section-heading"><SectionTag>NUESTROS SERVICIOS</SectionTag><h2>Soluciones diseñadas<br /><em>alrededor de cada reto.</em></h2></div><div className="service-preview-grid">{[services[0], services[2], services[4]].map((service) => <Link to="/servicios" className="service-preview-card" key={service.number}><div className="service-preview-image"><img src={service.image} alt={service.imageAlt} loading="lazy" /></div><div className="service-preview-content"><span>{service.number} / CAPACIDAD</span><ArrowUpRight size={21} strokeWidth={1.4} /><h3>{service.title}</h3><p>{service.short}</p></div></Link>)}</div><Link className="text-link preview-more" to="/servicios">Ver todos los servicios <ArrowUpRight size={18} /></Link></div></section>
+    <ConsumerStudies variant="showcase" />
+    <section className="section services-preview"><div className="container"><div className="section-heading"><SectionTag>NUESTROS SERVICIOS</SectionTag><h2>Soluciones diseñadas<br /><em>alrededor de cada reto.</em></h2></div><div className="service-preview-grid">{[services[1], services[2], services[4]].map((service) => <Link to="/servicios" className="service-preview-card" key={service.number}><div className="service-preview-image"><img src={service.image} alt={service.imageAlt} loading="lazy" /></div><div className="service-preview-content"><span>{service.number} / CAPACIDAD</span><ArrowUpRight size={21} strokeWidth={1.4} /><h3>{service.title}</h3><p>{service.short}</p></div></Link>)}</div><Link className="text-link preview-more" to="/servicios">Ver todos los servicios <ArrowUpRight size={18} /></Link></div></section>
     <section className="section method-section"><div className="container method-grid"><div className="method-copy"><SectionTag>NUESTRA FORMA DE TRABAJAR</SectionTag><h2>De una pregunta de negocio a una <em>decisión clara.</em></h2><p>Partimos del reto, elegimos la metodología adecuada y transformamos hallazgos en recomendaciones concretas.</p><ImagePanel src={images.analysis} alt="Equipo analizando gráficos y resultados de muestras" className="method-photo" /></div><div className="process-list">{process.map(([n, title, desc]) => <div className="process-step" key={n}><span className="process-number">{n}</span><div><h3>{title}</h3><p>{desc}</p></div><ArrowDownRight size={21} strokeWidth={1.3} /></div>)}</div></div></section>
     <section className="clients-section"><div className="container"><p>UNA TRAYECTORIA CON MARCAS DE DISTINTAS INDUSTRIAS</p><h2>Marcas que han confiado en CID</h2></div><div className="client-marquees"><BrandMarquee brands={clientRows[0]} direction="left" /><BrandMarquee brands={clientRows[1]} direction="right" /></div></section>
     <ClosingCTA />
@@ -251,21 +364,10 @@ function HomePage() {
 }
 
 function ServicesPage() {
-  const [active, setActive] = useState('01')
-  const [scrollTarget, setScrollTarget] = useState<string | null>(null)
-  const rowButtons = useRef<Record<string, HTMLButtonElement | null>>({})
-  useEffect(() => {
-    if (!scrollTarget || scrollTarget !== active) return
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const narrowViewport = window.innerWidth <= 800
-    const timer = window.setTimeout(() => {
-      rowButtons.current[scrollTarget]?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: narrowViewport ? 'start' : 'center' })
-    }, reducedMotion ? 0 : 390)
-    return () => window.clearTimeout(timer)
-  }, [active, scrollTarget])
   return <>
     <section className="page-hero services-hero"><div className="container page-hero-grid"><div><SectionTag>CAPACIDADES</SectionTag><h1>Investigación diseñada para responder <em>preguntas reales.</em></h1><p>No partimos de una metodología. Partimos de la pregunta que tu negocio necesita resolver.</p></div><div className="page-hero-image"><img src={images.flavors} alt="Muestras comparativas de sabores y aromas" /></div></div></section>
-    <section className="services-index section"><div className="container"><div className="services-intro"><span>LO QUE PODEMOS HACER</span><p>Unimos la investigación con el criterio sensorial para responder a cada reto con la profundidad que necesita.</p></div><div className="service-accordion">{services.map(service => <article className={`service-row ${active === service.number ? 'is-active' : ''}`} key={service.number}><button ref={(element) => { rowButtons.current[service.number] = element }} type="button" aria-controls={`service-panel-${service.number}`} aria-expanded={active === service.number} onClick={() => { const next = active === service.number ? '' : service.number; setActive(next); setScrollTarget(next || null) }}><span className="service-row-number">{service.number}</span><span className="service-row-title">{service.title}</span><span className="service-row-toggle"><ChevronDown size={21} strokeWidth={1.6} /></span></button><div className="service-panel" id={`service-panel-${service.number}`} aria-hidden={active !== service.number}><div className="service-panel-inner"><div className="service-row-body"><div className="service-row-photo"><img src={service.image} alt={service.imageAlt} loading="lazy" /></div><div className="service-row-detail"><p>{service.detail}</p><div className="method-chips">{service.methods.map(method => <span key={method}><Check size={13} />{method}</span>)}</div>{service.uses && <div className="service-uses"><h4>CUÁNDO UTILIZARLO</h4><p>{service.uses.join(' · ')}</p></div>}</div></div></div></div></article>)}</div></div></section>
+    <ConsumerStudies variant="detail" />
+    <section className="services-index section"><div className="container"><div className="services-intro"><div><SectionTag>OTROS SERVICIOS QUE OFRECEMOS</SectionTag><h2>Más formas de entender <em>la percepción.</em></h2></div><p>Unimos la investigación con el criterio sensorial para responder a cada reto con la profundidad que necesita.</p></div><div className="other-services">{otherServices.map((service) => <article className="other-service" key={service.number}><div className="other-service-image"><img src={service.image} alt={service.imageAlt} loading="lazy" /></div><div className="other-service-body"><span className="other-service-number">{service.number} / SERVICIO</span><h3>{service.title}</h3><p>{service.long}</p><div className="method-chips">{service.methods.map(method => <span key={method}><Check size={13} />{method}</span>)}</div><div className="other-service-outcome"><h4>LO QUE OBTIENES</h4><p>{service.outcome}</p></div><Link className="text-link row-cta" to={`/nosotros?servicio=${service.id}#contacto`}>Cotizar este servicio <ArrowUpRight size={18} /></Link></div></article>)}</div></div></section>
     <section className="tailored-note"><div className="container tailored-grid"><span>0 FÓRMULAS GENÉRICAS</span><h2>La metodología correcta empieza con una buena pregunta.</h2><ButtonLink to="/nosotros#contacto" variant="outline">Hablar con CID</ButtonLink></div></section>
     <ClosingCTA />
   </>
@@ -286,17 +388,59 @@ const beliefStories = [
 
 const presenceCountries = ['México', 'Estados Unidos', 'Guatemala', 'Colombia', 'Perú', 'Brasil', 'Chile', 'Argentina']
 
+const serviceGroups = [
+  { label: 'Estudios con consumidores', items: consumerMethods.map(({ id, title }) => ({ id, title })) },
+  { label: 'Otros servicios', items: otherServices.map(({ id, title }) => ({ id, title })) },
+]
+
 function ContactForm() {
-  const [sent, setSent] = useState(false)
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const { search } = useLocation()
+  const requested = new URLSearchParams(search).get('servicio')
+  const initialService = serviceGroups.flatMap(group => group.items).find(item => item.id === requested)?.title ?? ''
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const openedAt = useRef(Date.now())
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    const subject = encodeURIComponent(`Consulta CID: ${String(data.get('empresa') || 'nuevo proyecto')}`)
-    const body = encodeURIComponent(`Nombre: ${data.get('nombre')}\nEmpresa: ${data.get('empresa')}\nEmail: ${data.get('email')}\nTipo de estudio: ${data.get('estudio')}\nIndustria: ${data.get('industria')}\n\nMensaje:\n${data.get('mensaje')}`)
-    window.location.href = `mailto:contacto@cidconsultores.com?subject=${subject}&body=${body}`
-    setSent(true)
+    const form = event.currentTarget
+    setStatus('sending')
+    try {
+      const response = await fetch('/api/contacto', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...Object.fromEntries(new FormData(form)), t: openedAt.current }),
+      })
+      if (!response.ok) throw new Error(String(response.status))
+      form.reset()
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
   }
-  return <form className="contact-form" onSubmit={handleSubmit}><div className="form-two"><label>Nombre<input name="nombre" placeholder="Tu nombre" required /></label><label>Empresa<input name="empresa" placeholder="Nombre de tu empresa" required /></label></div><label>Email<input name="email" type="email" placeholder="correo@empresa.com" required /></label><div className="form-two"><label>Tipo de estudio<span className="select-wrap"><select name="estudio" defaultValue="" required><option value="" disabled>Selecciona una opción</option><option>Estudios con consumidores</option><option>Evaluación sensorial</option><option>Panel de expertos</option><option>Optimización de insumos</option><option>Proyecto a medida</option><option>No lo sé aún</option></select><ChevronDown size={17} /></span></label><label>Industria<span className="select-wrap"><select name="industria" defaultValue="" required><option value="" disabled>Selecciona una opción</option><option>Perfumería / Fragancias</option><option>Sabores / Alimentos</option><option>Cuidado personal</option><option>Productos del hogar</option><option>Bebidas</option><option>Otra</option></select><ChevronDown size={17} /></span></label></div><label>Mensaje<textarea name="mensaje" rows={4} placeholder="Cuéntanos qué necesitas entender..." required /></label><button className="button button-teal" type="submit">Enviar consulta <ArrowUpRight size={17} /></button>{sent && <p className="form-feedback" role="status">Se abrirá tu aplicación de correo para enviar la consulta.</p>}</form>
+
+  return <form className="contact-form" onSubmit={handleSubmit}>
+    <div className="form-two">
+      <label>Nombre<input name="nombre" placeholder="Tu nombre" autoComplete="name" maxLength={120} required /></label>
+      <label>Empresa<input name="empresa" placeholder="Nombre de tu empresa" autoComplete="organization" maxLength={160} required /></label>
+    </div>
+    <div className="form-two">
+      <label>Email<input name="email" type="email" placeholder="correo@empresa.com" autoComplete="email" maxLength={200} required /></label>
+      <label>Teléfono o WhatsApp<input name="telefono" type="tel" placeholder="+52 55 0000 0000" autoComplete="tel" maxLength={40} /></label>
+    </div>
+    <div className="form-two">
+      <label>Servicio de interés<span className="select-wrap"><select name="servicio" defaultValue={initialService} key={initialService} required><option value="" disabled>Selecciona una opción</option>{serviceGroups.map(group => <optgroup label={group.label} key={group.label}>{group.items.map(item => <option key={item.id}>{item.title}</option>)}</optgroup>)}<option>No lo sé aún</option></select><ChevronDown size={17} /></span></label>
+      <label>Industria<span className="select-wrap"><select name="industria" defaultValue="" required><option value="" disabled>Selecciona una opción</option><option>Perfumería / Fragancias</option><option>Sabores / Alimentos</option><option>Cuidado personal</option><option>Productos del hogar</option><option>Bebidas</option><option>Otra</option></select><ChevronDown size={17} /></span></label>
+    </div>
+    <label>¿Qué necesitas entender o evaluar?<textarea name="mensaje" rows={4} maxLength={4000} placeholder="Producto, objetivo del estudio, número aproximado de muestras, ciudades o países..." required /></label>
+    <div className="form-two">
+      <label>¿Para cuándo lo necesitas?<span className="select-wrap"><select name="plazo" defaultValue=""><option value="">Sin definir</option><option>Lo antes posible</option><option>En 1 a 3 meses</option><option>Más adelante</option><option>Solo estoy explorando</option></select><ChevronDown size={17} /></span></label>
+      <label>¿Cómo prefieres que te contactemos?<span className="select-wrap"><select name="contacto" defaultValue="Email"><option>Email</option><option>Teléfono</option><option>WhatsApp</option></select><ChevronDown size={17} /></span></label>
+    </div>
+    <div className="form-trap" aria-hidden="true"><label>No llenar este campo<input name="web" tabIndex={-1} autoComplete="off" /></label></div>
+    <button className="button button-teal" type="submit" disabled={status === 'sending'}>{status === 'sending' ? 'Enviando...' : 'Enviar consulta'} <ArrowUpRight size={17} /></button>
+    {status === 'sent' && <p className="form-feedback" role="status">Gracias, recibimos tu consulta. Te contactaremos pronto.</p>}
+    {status === 'error' && <p className="form-feedback is-error" role="alert">No pudimos enviar tu consulta. Intenta de nuevo o escríbenos a <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.</p>}
+  </form>
 }
 
 function AboutPage() {
@@ -308,7 +452,7 @@ function AboutPage() {
     <section className="section belief-section"><div className="container"><div className="belief-heading"><SectionTag>UNA FORMA DE MIRAR</SectionTag><h2>La percepción se entiende desde <em>más de un ángulo.</em></h2><p>En CID conectamos la voz del consumidor, la evaluación sensorial y el análisis para comprender qué hay detrás de una preferencia.</p></div><div className="belief-grid">{beliefStories.map((story) => <article className="belief-story" key={story.number}><div className="belief-photo"><img src={story.image} alt={story.alt} loading="lazy" /></div><div className="belief-story-heading"><span>{story.number}</span><h3>{story.title}</h3></div><p>{story.text}</p></article>)}</div></div></section>
     <section className="section founder-section"><div className="container founder-grid"><div className="founder-image"><img src={images.perfume} alt="Manos evaluando materias primas y tiras olfativas" loading="lazy" /><span>IMAGEN CONCEPTUAL / OFICIO SENSORIAL</span></div><div className="founder-copy"><SectionTag>LA VISIÓN DETRÁS DE CID</SectionTag><h2>Una vida dedicada a entender <em>los sentidos.</em></h2><h3>José Luis</h3><span className="founder-role">FUNDADOR Y PERFUMISTA SENIOR</span><p>Con más de 50 años de experiencia en perfumería y sabores, José Luis ha construido una trayectoria alrededor de la evaluación sensorial, las materias primas y el entendimiento del consumidor.</p><p>Su visión dio origen a CID: combinar rigor científico, experiencia sensorial y criterio estratégico.</p></div></div></section>
     <section className="section presence-section"><div className="container"><div className="presence-heading"><SectionTag>PRESENCIA</SectionTag><h2>Conocimiento local.<br /><em>Perspectiva regional.</em></h2><p>Una mirada nacida en Ciudad de México y enriquecida por proyectos en distintos mercados de América.</p></div><div className="presence-layout"><div className="presence-map"><img src={americasMap} alt="Mapa de América con México, Estados Unidos, Guatemala, Colombia, Perú, Brasil, Chile y Argentina destacados" loading="lazy" /><span>ORIGEN EN CIUDAD DE MÉXICO</span></div><div className="presence-list"><strong>08</strong><span>PAÍSES EN NUESTRA TRAYECTORIA</span><div className="country-list">{presenceCountries.map((country, index) => <div key={country}><small>{String(index + 1).padStart(2, '0')}</small><span>{country}</span></div>)}</div></div></div></div></section>
-    <section className="section contact-section" id="contacto"><div className="container contact-grid"><div className="contact-copy"><SectionTag>CONTACTO</SectionTag><h2>Hablemos de tu <em>próximo proyecto.</em></h2><p>Cuéntanos qué necesitas entender. Te ayudaremos a definir la mejor forma de investigarlo.</p><div className="contact-info"><span>ESCRÍBENOS</span><a href="mailto:contacto@cidconsultores.com">contacto@cidconsultores.com <ArrowUpRight size={18} /></a><span>ENCUÉNTRANOS</span><p>Ciudad de México, México</p></div></div><ContactForm /></div></section>
+    <section className="section contact-section" id="contacto"><div className="container contact-grid"><div className="contact-copy"><SectionTag>CONTACTO</SectionTag><h2>Hablemos de tu <em>próximo proyecto.</em></h2><p>Cuéntanos qué necesitas entender. Te ayudaremos a definir la mejor forma de investigarlo.</p><div className="contact-channels"><span>TAMBIÉN PUEDES ESCRIBIRNOS</span><a href={`mailto:${CONTACT.email}`}><Mail size={18} />{CONTACT.email}</a><a href={CONTACT.phoneHref}><Phone size={18} />{CONTACT.phone}</a><a href={CONTACT.whatsapp} target="_blank" rel="noreferrer"><MessageCircle size={18} />WhatsApp</a><a href={CONTACT.instagram} target="_blank" rel="noreferrer"><Instagram size={18} />{CONTACT.instagramHandle}</a><a href={CONTACT.linkedin} target="_blank" rel="noreferrer"><Linkedin size={18} />{CONTACT.linkedinLabel}</a><p>{CONTACT.city}</p></div></div><ContactForm /></div></section>
   </>
 }
 

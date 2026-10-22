@@ -257,3 +257,101 @@ p{line-height:1.75;color:#617086}
 @keyframes site-intro-progress{to{transform:translateX(0)}}
 @keyframes site-intro-exit{from{opacity:1;visibility:visible}to{opacity:0;visibility:hidden}}
 @media(prefers-reduced-motion:reduce){.site-intro{display:none}}
+
+/* Estudios con consumidores (servicio estrella) */
+.consumer-studies{background:#0b1e3d;color:#fff;scroll-margin-top:88px}
+.consumer-studies .section-tag{color:#d9a84e}
+.consumer-head{display:grid;grid-template-columns:1.1fr .9fr;gap:8%;align-items:end;margin-bottom:56px}
+.consumer-head h2{font-size:clamp(43px,4.4vw,68px);line-height:1.02;margin:25px 0}
+.consumer-head h2 em{color:#7bc1b5}
+.consumer-head p{max-width:600px;font-size:16px;color:#b6c8d6;margin:0}
+.consumer-uses{border-top:1px solid rgba(255,255,255,.18);padding-top:22px}
+.consumer-uses h4{margin:0 0 16px;font-size:10px;letter-spacing:.26em;font-weight:600;color:#d9a84e}
+.consumer-uses ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.consumer-uses li{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1px solid rgba(255,255,255,.2);border-radius:999px;font-size:13px;color:#e6eef3}
+.consumer-uses li svg{color:#7bc1b5}
+.consumer-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:17px}
+.consumer-card{display:flex;flex-direction:column;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.13);transition:transform .25s,border-color .25s,background .25s}
+.consumer-card:hover{transform:translateY(-5px);border-color:rgba(123,193,181,.55);background:rgba(255,255,255,.07)}
+.consumer-card-image{height:210px;overflow:hidden}
+.consumer-card-image img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.consumer-card:hover img{transform:scale(1.04)}
+.consumer-card-body{padding:24px 26px 28px;flex:1}
+.consumer-card-body>span{font-size:9px;letter-spacing:.25em;font-weight:600;color:#d9a84e}
+.consumer-card-body h3{font-size:30px;line-height:1.1;margin:12px 0 10px;color:#fff}
+.consumer-card-body p{margin:0;font-size:14px;line-height:1.65;color:#b6c8d6}
+.consumer-card.is-featured{grid-row:1 / 3;background:#f7f4ee;border-color:#f7f4ee}
+.consumer-card.is-featured:hover{background:#fff;border-color:#7bc1b5}
+.consumer-card.is-featured .consumer-card-image{height:auto;flex:1;min-height:340px}
+.consumer-card.is-featured .consumer-card-body{flex:none}
+.consumer-card.is-featured .consumer-card-body>span{color:#a77225}
+.consumer-card.is-featured h3{font-size:42px;color:#0b1e3d}
+.consumer-card.is-featured p{font-size:15px;color:#617086}
+.consumer-more{align-self:end;justify-self:start;color:#7bc1b5;border-bottom-color:#7bc1b5}
+.consumer-rows{border-top:1px solid rgba(255,255,255,.18)}
+.consumer-row{display:grid;grid-template-columns:.9fr 1fr;gap:7%;align-items:center;padding:48px 0;border-bottom:1px solid rgba(255,255,255,.18)}
+.consumer-row:nth-child(even){grid-template-columns:1fr .9fr}
+.consumer-row:nth-child(even) .consumer-row-image{order:2}
+.consumer-row-image{height:380px;overflow:hidden;border-radius:4px}
+.consumer-row-image img{width:100%;height:100%;object-fit:cover}
+.consumer-row-body>span{font-size:10px;letter-spacing:.26em;font-weight:600;color:#d9a84e}
+.consumer-row-body h3{font-size:clamp(34px,3.2vw,48px);line-height:1.06;margin:16px 0 18px;color:#fff}
+.consumer-row-body>p{margin:0 0 26px;max-width:520px;font-size:16px;color:#b6c8d6}
+.consumer-ideal{border-top:1px solid rgba(255,255,255,.18);padding-top:18px;max-width:520px}
+.consumer-ideal h4{margin:0 0 8px;font-size:10px;letter-spacing:.26em;font-weight:600;color:#7bc1b5}
+.consumer-ideal p{margin:0;font-size:14px;color:#e6eef3}
+.consumer-cta{margin-top:56px;display:flex;justify-content:center}
+@media(max-width:1000px){
+  .consumer-head{grid-template-columns:1fr;gap:34px;align-items:start}
+  .consumer-grid{grid-template-columns:1fr 1fr}
+  .consumer-card.is-featured{grid-row:auto;grid-column:1 / 3}
+  .consumer-card.is-featured .consumer-card-image{min-height:300px}
+  .consumer-row,.consumer-row:nth-child(even){grid-template-columns:1fr;gap:28px;padding:36px 0}
+  .consumer-row:nth-child(even) .consumer-row-image{order:0}
+  .consumer-row-image{height:300px}
+}
+@media(max-width:620px){
+  .consumer-studies.section{padding:84px 0}
+  .consumer-grid{grid-template-columns:1fr}
+  .consumer-card.is-featured{grid-column:auto}
+  .consumer-card.is-featured h3{font-size:34px}
+  .consumer-cta .button{white-space:normal;text-align:left}
+}
+
+/* Otros servicios */
+.services-index .services-intro{align-items:end;margin-bottom:56px}
+.services-index .services-intro h2{font-size:clamp(38px,3.8vw,58px);line-height:1.04;margin:22px 0 0;max-width:640px}
+.other-services{border-top:1px solid #bfcaca}
+.other-service{display:grid;grid-template-columns:.85fr 1fr;gap:7%;align-items:center;padding:52px 0;border-bottom:1px solid #c9d2d0}
+.other-service:nth-child(even){grid-template-columns:1fr .85fr}
+.other-service:nth-child(even) .other-service-image{order:2}
+.other-service-image{height:360px;overflow:hidden;border-radius:4px;background:#e6e7e2}
+.other-service-image img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.other-service:hover .other-service-image img{transform:scale(1.03)}
+.other-service-number{font-size:10px;letter-spacing:.26em;font-weight:600;color:#a77225}
+.other-service-body h3{font-size:clamp(32px,3vw,44px);line-height:1.08;margin:16px 0 16px}
+.other-service-body>p{margin:0 0 22px;max-width:540px;font-size:16px}
+.other-service-body .method-chips{margin-bottom:24px}
+.other-service-outcome{border-top:1px solid #d5dcda;padding-top:18px;max-width:540px}
+.other-service-outcome h4{margin:0 0 8px;font-size:10px;letter-spacing:.26em;font-weight:600;color:#0f7b6c}
+.other-service-outcome p{margin:0;font-size:15px;color:#0b1e3d}
+@media(max-width:1000px){
+  .services-index .services-intro{flex-direction:column;align-items:flex-start}
+  .other-service,.other-service:nth-child(even){grid-template-columns:1fr;gap:26px;padding:38px 0}
+  .other-service:nth-child(even) .other-service-image{order:0}
+  .other-service-image{height:280px}
+}
+
+/* Contacto: canales, antispam y CTAs por servicio */
+.contact-channels{display:flex;flex-direction:column;align-items:flex-start;gap:14px;margin-top:56px}
+.contact-channels>span{font-size:10px;letter-spacing:.24em;color:#a9722a;margin-bottom:4px}
+.contact-channels>a{display:inline-flex;align-items:center;gap:12px;font-size:16px;color:#0b1e3d;transition:color .2s}
+.contact-channels>a svg{color:#0f7b6c;flex:none}
+.contact-channels>a:hover{color:#0f7b6c}
+.contact-channels>p{margin:8px 0 0;font-size:13px}
+.form-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.contact-form .button:disabled{opacity:.65;cursor:wait;transform:none}
+.form-feedback.is-error{color:#a23b2a}
+.form-feedback a{text-decoration:underline}
+.row-cta{margin-top:26px}
+.consumer-row .row-cta{color:#7bc1b5;border-bottom-color:#7bc1b5}
